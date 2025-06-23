@@ -49,20 +49,19 @@ export const listarEmpresas = async (req: Request, res: Response) => {
 };
 
 // Função para criar uma nova empresa
-export const criarEmpresa = (req: Request, res: Response) => {
-  // Pega os dados enviados pelo superadmin
-  const { nome, logo, subdominio, plano } = req.body;
+export const criarEmpresa = async (req: Request, res: Response) => {
+  const { nome, endereco, telefone, plano, status } = req.body;
 
-  // Aqui você salvaria no banco de dados
-  // Exemplo de resposta simulando sucesso
-  return res.status(201).json({
-    id: 3,
-    nome,
-    logo,
-    subdominio,
-    plano,
-    status: 'Ativo',
-  });
+  const { data, error } = await supabase
+    .from('restaurantes')
+    .insert([{ nome, endereco, telefone, plano, status }])
+    .select()
+    .single();
+
+  if (error || !data) {
+    return res.status(500).json({ erro: 'Erro ao cadastrar empresa', detalhes: error?.message });
+  }
+  return res.status(201).json(data);
 };
 
 // Função para cadastrar restaurante e seus usuários
@@ -233,4 +232,17 @@ export const editarEmpresa = async (req: Request, res: Response) => {
     return res.status(500).json({ erro: 'Erro ao editar empresa', detalhes: error?.message });
   }
   return res.json(data);
+};
+
+export const excluirEmpresa = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { error } = await supabase
+    .from('restaurantes')
+    .delete()
+    .eq('id', id);
+
+  if (error) {
+    return res.status(500).json({ erro: 'Erro ao excluir empresa', detalhes: error.message });
+  }
+  return res.status(204).send();
 }; 

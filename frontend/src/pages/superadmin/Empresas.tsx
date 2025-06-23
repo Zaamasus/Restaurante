@@ -2,6 +2,7 @@ import { HiOutlineEye, HiOutlinePencil, HiOutlineTrash } from 'react-icons/hi';
 import { useEffect, useState } from 'react';
 import Sidebar from '../../components/Sidebar';
 import EditarEmpresaModal from './EditarEmpresaModal';
+import CadastrarEmpresaModal from './CadastrarEmpresaModal';
 
 interface Empresa {
   id: number;
@@ -21,6 +22,7 @@ function Empresas() {
   const [erro, setErro] = useState<string | null>(null);
   const [modalAberto, setModalAberto] = useState(false);
   const [empresaSelecionada, setEmpresaSelecionada] = useState<Empresa | null>(null);
+  const [modalCadastroAberto, setModalCadastroAberto] = useState(false);
 
   useEffect(() => {
     fetch('/api/superadmin/empresas')
@@ -102,6 +104,26 @@ function Empresas() {
     }
   }
 
+  function handleCadastrarEmpresa(dados: { nome: string; endereco: string; telefone: string; plano: string; status: 'Ativo' | 'Inativo'; }) {
+    fetch('/api/superadmin/empresas', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados),
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Erro ao cadastrar empresa');
+        return res.json();
+      })
+      .then(novaEmpresa => {
+        setEmpresas([novaEmpresa, ...empresas]);
+        setModalCadastroAberto(false);
+        alert('Empresa cadastrada com sucesso!');
+      })
+      .catch(err => {
+        alert('Erro ao cadastrar empresa: ' + err.message);
+      });
+  }
+
   return (
     <>
       <div className="min-h-screen bg-gray-50 flex">
@@ -120,7 +142,7 @@ function Empresas() {
                   <h2 className="text-xl sm:text-2xl font-bold">Empresas</h2>
                   <p className="text-gray-500 text-xs sm:text-sm">Gerencie todas as empresas cadastradas</p>
                 </div>
-                <button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 sm:px-5 py-2 rounded transition flex items-center justify-center">
+                <button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 sm:px-5 py-2 rounded transition flex items-center justify-center" onClick={() => setModalCadastroAberto(true)}>
                   + Nova Empresa
                 </button>
               </div>
@@ -211,6 +233,11 @@ function Empresas() {
         onClose={() => { setModalAberto(false); setEmpresaSelecionada(null); }}
         empresa={empresaSelecionada}
         onSave={handleSalvarEdicao}
+      />
+      <CadastrarEmpresaModal
+        open={modalCadastroAberto}
+        onClose={() => setModalCadastroAberto(false)}
+        onSave={handleCadastrarEmpresa}
       />
     </>
   );
