@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { loginSuperadmin, listarEmpresas, criarEmpresa, cadastrarRestauranteEUsuarios, atualizarPlanoRestaurante, dashboardSuperadmin } from '../controllers/superadminController';
+import { loginSuperadmin, listarEmpresas, criarEmpresa, cadastrarRestauranteEUsuarios, atualizarPlanoRestaurante, dashboardSuperadmin, buscarEmpresaPorId, editarEmpresa } from '../controllers/superadminController';
 
 // Cria um roteador para as rotas do superadministrador
 const router = Router();
@@ -21,5 +21,11 @@ router.put('/restaurantes/atualizar-plano', atualizarPlanoRestaurante);
 
 // Rota para dashboard resumido do superadmin
 router.get('/dashboard', dashboardSuperadmin);
+
+// Rota para buscar uma empresa específica pelo id
+router.get('/empresas/:id', buscarEmpresaPorId);
+
+// Rota para editar uma empresa
+router.put('/empresas/:id', editarEmpresa);
 
 export default router; 

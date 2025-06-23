@@ -25,10 +25,10 @@ function Sidebar() {
           <span className="text-black">RestaurantOS</span>
         </div>
         <nav className="flex-1 px-2 py-4 space-y-1">
-          <a href="/superadmin/cadastrar-restaurante" className="flex items-center gap-3 px-4 py-2 rounded-lg bg-blue-50 text-blue-700 font-semibold">
+          <a href="/superadmin" className={`flex items-center gap-3 px-4 py-2 rounded-lg ${window.location.pathname === '/superadmin' ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-100'}`}>
             <HiOutlineHome size={20} /> Dashboard
           </a>
-          <a href="#" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+          <a href="/superadmin/empresas" className={`flex items-center gap-3 px-4 py-2 rounded-lg ${window.location.pathname.includes('/superadmin/empresas') ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-100'}`}>
             <HiOutlineBuildingOffice2 size={20} /> Empresas
           </a>
           <a href="#" className="flex items-center gap-3 px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">

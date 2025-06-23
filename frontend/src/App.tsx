@@ -7,6 +7,7 @@ import GarcomDashboard from './pages/garcom/Dashboard';
 import CozinhaDashboard from './pages/cozinha/Dashboard';
 import AdminDashboard from './pages/admin/Dashboard';
 import TelaHomeSuperAdmin from './pages/superadmin/TelaHomeSuperAdmin';
+import Empresas from './pages/superadmin/Empresas';
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
       <Route path="/cozinha/dashboard" element={<CozinhaDashboard />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
       <Route path="/superadmin/cadastrar-restaurante" element={<TelaHomeSuperAdmin />} />
+      <Route path="/superadmin" element={<TelaHomeSuperAdmin />} />
+      <Route path="/superadmin/empresas" element={<Empresas />} />
       {/* Outras rotas podem ser adicionadas aqui */}
     </Routes>
   );

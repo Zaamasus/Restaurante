@@ -202,4 +202,35 @@ export const dashboardSuperadmin = async (req: Request, res: Response) => {
     empresas_recentes: empresasRecentes,
     distribuicao_planos: distribuicaoPlanos
   });
+};
+
+export const buscarEmpresaPorId = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { data, error } = await supabase
+    .from('restaurantes')
+    .select('id, nome, endereco, telefone, plano, status, criado_em')
+    .eq('id', id)
+    .single();
+
+  if (error || !data) {
+    return res.status(404).json({ erro: 'Empresa não encontrada' });
+  }
+  return res.json(data);
+};
+
+export const editarEmpresa = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { nome, plano, endereco, telefone, status } = req.body;
+
+  const { data, error } = await supabase
+    .from('restaurantes')
+    .update({ nome, plano, endereco, telefone, status })
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error || !data) {
+    return res.status(500).json({ erro: 'Erro ao editar empresa', detalhes: error?.message });
+  }
+  return res.json(data);
 }; 
