@@ -28,7 +28,7 @@ function Login() {
       localStorage.setItem('email', email);
       // Redireciona para o painel correto conforme o tipo de usuário (pt-br)
       if (data.funcao === 'superadmin') {
-        navigate('/superadmin/dashboard');
+        navigate('/superadmin/cadastrar-restaurante');
       } else if (data.funcao === 'admin-restaurante') {
         navigate('/admin/dashboard');
       } else if (data.funcao === 'garcom') {

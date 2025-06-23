@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { listarPlanos, criarPlano, editarPlano } from '../controllers/planController';
+import { listarPlanos, criarPlano, editarPlano, excluirPlano } from '../controllers/planController';
 
 // Cria um roteador para as rotas de planos
 const router = Router();
@@ -12,5 +12,8 @@ router.post('/', criarPlano);
 
 // Rota para editar um plano existente
 router.put('/:id', editarPlano);
+
+// Rota para excluir um plano
+router.delete('/:id', excluirPlano);
 
 export default router; 
