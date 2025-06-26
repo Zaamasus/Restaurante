@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Sidebar from '../../components/Sidebar';
-import { HiOutlineBell } from 'react-icons/hi2';
+import Header from "../../components/Header";
 
 type DashboardData = {
   empresas_ativas: number;
@@ -35,20 +35,7 @@ function TelaHomeSuperAdmin() {
       <Sidebar />
       <div className="flex-1 flex flex-col">
         {/* HEADER FIXO */}
-        <header className="h-16 bg-white border-b flex items-center justify-between px-4 md:px-8 md:pl-64 transition-all duration-200">
-          <div className="flex-1 flex justify-center md:justify-start">
-            <span className="text-lg font-semibold">Painel Super Administrador</span>
-          </div>
-          <div className="flex items-center gap-6">
-            <button className="relative text-gray-500 hover:text-green-700">
-              <HiOutlineBell size={22} />
-              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
-            <button className="text-gray-400 hover:text-red-500 ml-2">
-              <span className="inline-block align-middle">Sair</span>
-            </button>
-          </div>
-        </header>
+        <Header />
         {/* CONTEÚDO PRINCIPAL */}
         <main className="flex-1 p-4 md:p-8 flex flex-col items-center transition-all duration-200">
           <div className="w-full max-w-6xl">
@@ -67,10 +54,7 @@ function TelaHomeSuperAdmin() {
                   {dashboard.receita_mensal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                 </div>
               </div>
-              <div className="bg-white rounded-lg shadow p-5 flex flex-col gap-2 border">
-                <div className="flex items-center gap-2 text-gray-500 text-sm">Taxa de Crescimento</div>
-                <div className="text-2xl font-bold text-orange-600">{dashboard.taxa_crescimento}%</div>
-              </div>
+          
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">

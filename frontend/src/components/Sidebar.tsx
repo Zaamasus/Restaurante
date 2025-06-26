@@ -22,7 +22,7 @@ function Sidebar() {
       >
         <div className="h-16 flex items-center px-6 font-bold text-xl text-blue-700 gap-2">
           <span className="text-blue-500"><GiChefToque size={28} /></span>
-          <span className="text-black">RestaurantOS</span>
+          <span className="text-black">SamuelOS</span>
         </div>
         <nav className="flex-1 px-2 py-4 space-y-1">
           <a href="/superadmin" className={`flex items-center gap-3 px-4 py-2 rounded-lg ${window.location.pathname === '/superadmin' ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-100'}`}>
